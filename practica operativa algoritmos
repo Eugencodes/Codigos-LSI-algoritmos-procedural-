@@ -1,0 +1,58 @@
+#include <stdio.h>
+int const N = 6;
+typedef struct{
+	int numero_leg;
+	int edadal;
+}   estudiante;
+void carga(estudiante datos[], int N){
+    for(int i=0;i<N;i++)
+    {
+    	printf("ingrese el numero de legajo del alumno numero %d\n",i+1);
+    	scanf("%d",&datos[i].numero_leg);
+    	printf("ingrese la edad del alumno numero %d\n",i+1);
+    	scanf("%d",&datos[i].edadal);
+	}
+}
+int buscar(estudiante datos[], int N, int elemento){
+	int i;
+    i = 0;
+    while ((i<N) && (datos[i].numero_leg != elemento)){
+    	i++;
+	}
+	return(i);
+}
+float edadpromedio(estudiante datos[], int N){
+	int acumulador = 0;
+	for(int i=0;i<N;i++){
+		acumulador = (acumulador + datos[i].edadal);
+	}
+	float promedio = acumulador/N;
+	return(promedio);
+}
+void filtradoed(estudiante datos[], float prom, int N){
+	for(int i=0;i<N;i++){
+		if(datos[i].edadal>prom){
+			printf("\nla edad del alumno %d es superior al promedio",i+1);
+		}
+	}
+}
+int main()
+{
+	estudiante datos[N];
+	int aux, p;
+	carga(datos, N);
+	printf("ingrese el numero de legajo que desea buscar\n");
+	scanf("%d",&aux);
+	p = buscar(datos, N, aux);
+	if(p == N){
+		printf("el legajo ingresado no corresponde a ningun estudiante");
+	}else{
+		printf("la edad del alumno con el legajo ingresado es de %d a�os",datos[p].edadal);
+	}
+	float prom = edadpromedio(datos, N);
+	printf("\nla edad promedio de los alumnos es de %.1f anos",prom);
+	filtradoed(datos,prom, N);
+	printf("\nAlumno Eugenio Ignacio Luis");
+	printf("\nProfesor de teoria: Silvina Balmaceda");
+}      
+
